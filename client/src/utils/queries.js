@@ -69,10 +69,10 @@ export const QUERY_ME = gql`
                 createdAt
                 reactionCount
                 reactions {
-                _id
-                createdAt
-                reactionBody
-                username
+                    _id
+                    createdAt
+                    reactionBody
+                    username
                 }
             }
             friends {
