@@ -24,14 +24,6 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
-// create a new instance of an Apollo server with the GraphQL schema
-const startApolloServer = async (typeDefs, resolvers) => {
-  await server.start();
-
-  // integrate Appolo server with the express application as middleware
-  server.applyMiddleware({ app });
-
   // Serve up static assets
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
@@ -40,6 +32,14 @@ const startApolloServer = async (typeDefs, resolvers) => {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
+
+
+// create a new instance of an Apollo server with the GraphQL schema
+const startApolloServer = async (typeDefs, resolvers) => {
+  await server.start();
+
+  // integrate Appolo server with the express application as middleware
+  server.applyMiddleware({ app });
   
   db.once('open', () => {
     app.listen(PORT, () => {
